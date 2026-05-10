@@ -1,0 +1,91 @@
+{
+  "segmentation": {
+    "split_sizes": {
+      "train": 24,
+      "val": 5,
+      "test": 5
+    },
+    "segmentation_val": {
+      "accuracy": 0.988427734375,
+      "precision": 0.350326604783655,
+      "recall": 0.7861787721811969,
+      "f1": 0.4846775837466875,
+      "dice_hard": 0.48467758376419523,
+      "auroc": 0.9574724011464893
+    },
+    "segmentation_val_confusion_matrix": [
+      [
+        1288419,
+        13228
+      ],
+      [
+        1940,
+        7133
+      ]
+    ],
+    "segmentation_test": {
+      "accuracy": 0.9161460876464844,
+      "precision": 0.28113924211435615,
+      "recall": 0.2933123045114775,
+      "f1": 0.2870967951171102,
+      "dice_hard": 0.2870967951217343,
+      "auroc": 0.8570401822541477
+    },
+    "segmentation_test_confusion_matrix": [
+      [
+        1178680,
+        56588
+      ],
+      [
+        53321,
+        22131
+      ]
+    ],
+    "best_checkpoint": "D:\\IPA3\\ml_infection\\artifacts\\unet_infected_best.pt",
+    "note": "Pixel-level metrics on letterboxed 512x512 inputs. AUROC uses a subsample of pixels for speed. Clinical '99%' targets usually require more images and domain validation."
+  },
+  "roi_classifier": {
+    "roi_val": {
+      "accuracy": 0.9948051948051948,
+      "precision": 0.9777777777777777,
+      "recall": 1.0,
+      "f1": 0.9887640449438202,
+      "auroc": 0.9999234771962044,
+      "pr_auc": 0.9997417188599034
+    },
+    "roi_val_confusion_matrix": [
+      [
+        295,
+        2
+      ],
+      [
+        0,
+        88
+      ]
+    ],
+    "roi_test": {
+      "accuracy": 0.997979797979798,
+      "precision": 0.9915254237288136,
+      "recall": 1.0,
+      "f1": 0.9957446808510638,
+      "auroc": 1.0,
+      "pr_auc": 0.9999999999999998
+    },
+    "roi_test_confusion_matrix": [
+      [
+        377,
+        1
+      ],
+      [
+        0,
+        117
+      ]
+    ],
+    "checkpoint": "D:\\IPA3\\ml_infection\\artifacts\\roi_resnet18_best.pt",
+    "counts": {
+      "train_rois": 2716,
+      "val_rois": 385,
+      "test_rois": 495
+    }
+  }
+}

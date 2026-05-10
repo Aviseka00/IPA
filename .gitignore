@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+.venv/
+venv/
+.env
+.env.*
+*.egg-info/
+dist/
+build/
+
+# IDE / tools
+.idea/
+.vscode/
+*.swp
+.pytest_cache/
+.mypy_cache/
+
+# Web app runtime outputs (regenerated locally)
+web_app/processed_images/
+web_app/uploads/
+
+# OS
+Thumbs.db
+Desktop.ini

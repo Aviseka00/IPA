@@ -1,0 +1,44 @@
+{
+  "roi_val": {
+    "accuracy": 0.9948051948051948,
+    "precision": 0.9777777777777777,
+    "recall": 1.0,
+    "f1": 0.9887640449438202,
+    "auroc": 0.9999234771962044,
+    "pr_auc": 0.9997417188599034
+  },
+  "roi_val_confusion_matrix": [
+    [
+      295,
+      2
+    ],
+    [
+      0,
+      88
+    ]
+  ],
+  "roi_test": {
+    "accuracy": 0.997979797979798,
+    "precision": 0.9915254237288136,
+    "recall": 1.0,
+    "f1": 0.9957446808510638,
+    "auroc": 1.0,
+    "pr_auc": 0.9999999999999998
+  },
+  "roi_test_confusion_matrix": [
+    [
+      377,
+      1
+    ],
+    [
+      0,
+      117
+    ]
+  ],
+  "checkpoint": "D:\\IPA3\\ml_infection\\artifacts\\roi_resnet18_best.pt",
+  "counts": {
+    "train_rois": 2716,
+    "val_rois": 385,
+    "test_rois": 495
+  }
+}

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Infected cell analysis</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Infected cell segmentation</h1>
+      <p class="sub">
+        Upload plate scans or fields — runs the same pipeline as <code>visualize_inference.py</code>: CLAHE → U-Net
+        (<code>unet_infected_best.pt</code>) → true-positive filtering (min area, border rules) → overlay with count card
+        and optional QC artifact rings. Saves overlay PNG plus a side-by-side <strong>observation</strong> figure (heatmap |
+        masks | clean overlay) when enabled.
+      </p>
+    </header>
+
+    <section class="panel">
+      <div class="drop" id="dropzone">
+        <span class="drop-hint">Drop images here or click anywhere in this box</span>
+        <input
+          type="file"
+          id="files"
+          multiple
+          accept=".png,.jpg,.jpeg,.tif,.tiff,.bmp,.TIF,image/tiff,image/png,image/jpeg,image/bmp"
+        />
+      </div>
+
+      <div class="row">
+        <label>Min area (px)</label>
+        <input type="number" id="minArea" value="100" min="1" title="Drop components smaller than this (noise)" />
+      </div>
+      <div class="row">
+        <label>Border margin (px)</label>
+        <input type="number" id="borderMargin" value="10" min="0" max="512" title="Frame strip for small-edge artifact detection" />
+      </div>
+      <div class="row">
+        <label>Keep edge blob if ≥ (px)</label>
+        <input type="number" id="borderTouchKeep" value="500" min="1" max="500000" title="Large blobs touching frame still count" />
+      </div>
+      <div class="row">
+        <label>Threshold (optional)</label>
+        <input type="number" id="threshold" step="0.05" min="0" max="1" placeholder="e.g. 0.35 for faint stains" />
+      </div>
+
+      <details class="advanced">
+        <summary>Advanced — blend, observation export, watershed</summary>
+        <div class="row">
+          <label>Overlay blend α</label>
+          <input type="number" id="blendAlpha" value="0.52" min="0.05" max="1" step="0.02" title="Colored fill strength on brightfield" />
+        </div>
+        <div class="row row-check">
+          <label><input type="checkbox" id="saveObservation" checked /> Save observation panel (heatmap · masks · overlay)</label>
+        </div>
+        <div class="row">
+          <label>CLAHE clip (0 = off)</label>
+          <input type="number" id="claheClip" value="2" min="0" max="10" step="0.5" />
+        </div>
+        <div class="row">
+          <label>Watershed peak distance (px)</label>
+          <input type="number" id="wsDist" value="18" min="3" max="200" />
+        </div>
+        <div class="row">
+          <label>Morph opening size</label>
+          <input type="number" id="opening" value="5" min="0" max="31" />
+        </div>
+        <div class="row row-check">
+          <label><input type="checkbox" id="useWs" /> Watershed splitting (off = trained CC count)</label>
+        </div>
+      </details>
+
+      <div class="btns">
+        <button type="button" id="btnAnalyze" disabled>Analyze</button>
+        <span id="status" class="status"></span>
+      </div>
+    </section>
+
+    <section id="out" class="results hidden">
+      <h2>Results</h2>
+      <p id="jobMeta"></p>
+      <div id="resultsTables" class="results-tables" aria-label="Summary tables"></div>
+      <div id="cards" class="cards"></div>
+      <pre id="raw" class="raw hidden"></pre>
+    </section>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
