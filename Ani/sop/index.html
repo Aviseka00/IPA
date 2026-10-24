@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ani operator guide</title>
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: #f4f5f7; color: #1c2128;
+      font: 18px/1.5 "Segoe UI", sans-serif;
+    }
+    main { max-width: 920px; margin: 0 auto; padding: 32px 20px 80px; }
+    h1 { font-size: 36px; line-height: 1.15; margin: 0 0 8px; }
+    h2 { font-size: 26px; margin: 0 0 8px; }
+    .lead { font-size: 20px; color: #3d4654; margin: 0 0 20px; }
+    .path {
+      background: #fff; border: 1px solid #d5dbe3; border-radius: 12px;
+      padding: 12px 14px; font-family: Consolas, monospace; font-size: 16px;
+      word-break: break-all;
+    }
+    section {
+      background: #fff; border-radius: 16px; padding: 22px;
+      margin: 18px 0; box-shadow: 0 1px 2px rgba(20, 24, 32, 0.06);
+    }
+    img { width: 100%; height: auto; border-radius: 12px; display: block; }
+    ol.steps { margin: 8px 0 0; padding-left: 22px; }
+    ol.steps li { margin: 8px 0; }
+    .do, .get { margin: 10px 0 0; }
+    .do strong, .get strong { display: inline-block; min-width: 4.2em; }
+    table { width: 100%; border-collapse: collapse; font-size: 16px; }
+    th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #e4e8ee; vertical-align: top; }
+    th { color: #5c6775; font-weight: 600; }
+    .warn { background: #fff6f5; }
+    @media print {
+      body { background: #fff; }
+      section { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <h1>How to mark cells in Ani</h1>
+  <p class="lead">Follow these steps in order. The practice picture is the yellow microscopy slide used in every figure below.</p>
+  <p class="path">C:\Users\80100173\Ani-v0.4.0\Ani\sop\demo.jpg</p>
+
+  <section>
+    <h2>1. Open Ani and this picture</h2>
+    <ol class="steps">
+      <li>Double-click <strong>run_ani.bat</strong> in the Ani folder. If Ani is already open, use that window.</li>
+      <li>On the right-hand panel, click <strong>Open image</strong>.</li>
+      <li>Choose <strong>demo.jpg</strong> from the path above. You can also drop the file onto the window.</li>
+    </ol>
+    <p class="get"><strong>You see</strong> the whole slide, and the file name at the top of the panel.</p>
+    <img src="figures/01-practice-field.jpg" alt="Practice slide. A green box shows where the cells are. Three dark clumps are circled and labelled do not mark.">
+  </section>
+
+  <section>
+    <h2>2. Learn the panel before you draw</h2>
+    <p>Everything you click is on the <strong>Ani</strong> panel at the right. The picture matches the buttons in the program.</p>
+    <img src="figures/03-panel.png" alt="Numbered map of the Ani panel: Open image, class, Segment, draw tools, Check, Save annotations, and Extract features.">
+    <ol class="steps">
+      <li><strong>Open image</strong> loads the slide. Previous and Next move through other pictures in the same folder.</li>
+      <li><strong>Class</strong> is the name new outlines will receive. It starts as <em>cell</em>. Click <strong>Add class</strong> for names such as healthy, dead, or infected.</li>
+      <li><strong>Segment</strong> asks the computer to outline the whole picture. Leave the menu on <strong>Classic</strong> unless someone has installed Cellpose.</li>
+      <li><strong>Glide, Points, Pan, Brush, Erase, Click</strong> are how you draw and move.</li>
+      <li><strong>Check</strong> tells you if an outline has a hole or is only a speck.</li>
+      <li><strong>Save annotations</strong> writes the work to disk.</li>
+      <li><strong>Extract features</strong> is optional. Use it after the classes are finished.</li>
+    </ol>
+  </section>
+
+  <section class="warn">
+    <h2>3. Mark cells. Skip the dark clumps.</h2>
+    <img src="figures/02-mark-or-skip.jpg" alt="Close view. Dark clumps are crossed out. A pale cell is circled in green.">
+    <p>On this slide the cells are the pale cobblestone shapes. The black-brown clumps are dirt or stain, not cells.</p>
+    <p class="do"><strong>Do</strong> outline one pale cell at a time.</p>
+    <p class="do"><strong>Do not</strong> outline a dark clump, and do not outline several cells as one shape.</p>
+  </section>
+
+  <section>
+    <h2>4. Move around the slide</h2>
+    <ol class="steps">
+      <li>Click <strong>Pan</strong>, or stay on <strong>Glide</strong>.</li>
+      <li>Drag with the left mouse button to move the picture.</li>
+      <li>Roll the wheel to zoom in until one cell fills a good part of the view.</li>
+      <li>Click <strong>Fit</strong> when you want the whole slide back.</li>
+      <li>Click <strong>Contrast</strong> if the picture looks flat.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>5. Draw one cell with Glide</h2>
+    <img src="figures/04-glide.jpg" alt="A green closed outline on the practice slide, with the instruction to hold Shift and drag.">
+    <ol class="steps">
+      <li>Click <strong>Glide</strong>.</li>
+      <li>Hold the <strong>Shift</strong> key.</li>
+      <li>Press the left button on the edge of one cell and drag all the way around it.</li>
+      <li>Release the button when you are back near where you started.</li>
+    </ol>
+    <p class="get"><strong>You get</strong> one closed outline. If the line jumped across a gap, press <strong>Ctrl+Z</strong> and trace it again more slowly.</p>
+  </section>
+
+  <section>
+    <h2>6. Or place corners with Ctrl+click</h2>
+    <img src="figures/05-points.jpg" alt="Seven numbered blue corners around one cell. The instruction says Ctrl+click each corner.">
+    <ol class="steps">
+      <li>Click <strong>Glide</strong> or <strong>Points</strong>.</li>
+      <li>Hold <strong>Ctrl</strong> and left-click each corner of the cell, in order.</li>
+      <li>Click the first corner again, or double-click, to close the shape.</li>
+      <li>While the corners are still open, right-click removes the last corner. <strong>Esc</strong> cancels the shape.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>7. Auto segment the whole slide</h2>
+    <img src="figures/08-autosegment.jpg" alt="Classic segmentation on the practice slide. Thousands of green outlines cover the cells. The caption says to correct them with the brush.">
+    <p>This is the automatic segmenter. It proposes outlines. You still decide which ones are real cells.</p>
+    <ol class="steps">
+      <li>In the <strong>Segment</strong> menu, choose the method.
+        <ul>
+          <li><strong>Classic</strong> is always there. It needs no extra install and works offline. On this slide it finds about 2,450 pieces, including many that are only part of a cell.</li>
+          <li><strong>Cellpose cells</strong> and <strong>Cellpose nuclei</strong> appear in the same menu only after Cellpose has been installed with <strong>install_ai.bat</strong>. They are slower and aimed at microscopy cells. If you do not see them, Classic is the one to use.</li>
+        </ul>
+      </li>
+      <li>Click <strong>Segment</strong>. The window stays usable while it runs. The bottom line says “Segmenting the image…”</li>
+      <li>If the slide already has outlines, Ani asks “Replace outlines?” Click <strong>Yes</strong> only when the old work should be replaced. <strong>Ctrl+Z</strong> brings it back. That replacement is one undo step.</li>
+    </ol>
+    <p class="get"><strong>You get</strong> a line such as “Found 2456 objects. Correct them with the brush.” Every new outline receives the class that is selected in the list, usually <em>cell</em>.</p>
+    <p class="do"><strong>Then</strong> zoom in, erase dark clumps and specks, and join or redraw cells that were split badly. Do not save the draft as finished work.</p>
+  </section>
+
+  <section>
+    <h2>8. Auto segment one object with Click</h2>
+    <img src="figures/09-click.jpg" alt="One blue outline from the Click tool. The rest of the slide is unmarked.">
+    <ol class="steps">
+      <li>Click <strong>Click</strong>, or press <strong>C</strong>.</li>
+      <li>Left-click the middle of one cell that has no outline yet.</li>
+      <li>Use the same Segment menu. Classic, or Cellpose if it is installed, finds only that object.</li>
+    </ol>
+    <p class="get"><strong>You get</strong> one new outline. Outlines already on the slide stay as they are. A click on an existing outline does nothing to it. The bottom line says to correct it with the brush.</p>
+  </section>
+
+  <section>
+    <h2>9. Brush, erase, holes, and the check</h2>
+    <img src="figures/10-brush.jpg" alt="A green cell outline. A blue circle is labelled Brush adds. A red cross is labelled Erase removes.">
+    <ol class="steps">
+      <li>Click <strong>Brush</strong>, or press <strong>B</strong>. Drag to add pixels. Start the drag on the cell you want to extend. A drag that starts on empty space begins a new object.</li>
+      <li>Move the <strong>Brush</strong> slider. It runs from 2 px to 40 px. Start at 8 px. Zoom in before using a thin brush.</li>
+      <li>Click <strong>Erase</strong>, or press <strong>E</strong>, and drag across a mistake. Use this on any outline that landed on a dark clump.</li>
+      <li>While Brush, Erase, or Click is selected, the left button draws. Click <strong>Pan</strong> when you need to move the slide.</li>
+      <li>Move <strong>Fill</strong> if the colour hides the cell. 55% lets the picture show through. 100% is a solid colour.</li>
+      <li>Click <strong>Fill holes</strong>, or press <strong>F</strong>, when a gap is trapped inside an outline. Gaps that touch the edge of the picture are left alone.</li>
+      <li>Click <strong>Check</strong>. The bottom line reports holes, cells cut by the edge, specks under 8 pixels, and outlines with no class.</li>
+      <li>Press <strong>Delete</strong> or <strong>Backspace</strong> with the pointer over a bad outline to remove that whole object.</li>
+      <li>Right-click an outline and choose <strong>Delete cell</strong> for the same result. Choose <strong>New class…</strong> in that menu when the name you need is not in the list yet.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>10. Name each cell</h2>
+    <img src="figures/06-class.jpg" alt="Three outlined cells in green, red, and gold, next to a right-click menu named healthy, dead, and infected.">
+    <ol class="steps">
+      <li>Click <strong>Add class</strong> and type the names you were asked to use. For this practice, add <strong>healthy</strong>, <strong>dead</strong>, and <strong>infected</strong>.</li>
+      <li>Right-click an outline.</li>
+      <li>Click the class name in the menu.</li>
+      <li>The colour of that outline changes. The count under the tools shows how many cells have each name.</li>
+    </ol>
+    <p>The class selected in the list is used for the <em>next</em> outline you draw, including everything the auto segmenter adds. Right-click is how you change one that is already drawn.</p>
+    <ol class="steps">
+      <li>Press <strong>1</strong> to <strong>9</strong> to pick a class in the list without using the mouse.</li>
+      <li>Press <strong>[</strong> and <strong>]</strong> to move to the previous or next class.</li>
+    </ol>
+    <p>The count under the tools updates as you go, for example “12 cells · 8 healthy, 3 dead, 1 infected”. It also warns about holes and tiny specks.</p>
+  </section>
+
+  <section>
+    <h2>11. Save</h2>
+    <img src="figures/07-save.png" alt="The file types in the save list: seg.npy, TIFF or PNG, COCO, YOLO, and all of them.">
+    <ol class="steps">
+      <li>Click <strong>Save annotations</strong>, or press <strong>Ctrl+S</strong>.</li>
+      <li>At the bottom of the save window, open the file-type list.</li>
+      <li>For work you will reopen in Ani, choose <strong>seg.npy</strong>.</li>
+      <li>Choose <strong>All of them</strong> when a training program also needs COCO or YOLO.</li>
+    </ol>
+    <p class="get"><strong>You get</strong> a line that says the files were saved. Open the same image later and Ani loads <strong>demo_seg.npy</strong> beside it.</p>
+  </section>
+
+  <section>
+    <h2>12. Undo, and what happens if Ani closes</h2>
+    <ol class="steps">
+      <li><strong>Undo</strong> and <strong>Redo</strong> sit under the cell count. <strong>Ctrl+Z</strong> undoes the last outline, brush stroke, class change, or segmentation. <strong>Ctrl+Shift+Z</strong> puts it back.</li>
+      <li>One Segment click, one Click, and one brush drag are each a single undo step.</li>
+      <li>If the power fails or the window is closed while work is unsaved, open the same picture again. Ani restores the outlines and says they came from the last session. Save them, or discard them when Ani asks.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>13. Make the training table</h2>
+    <img src="figures/11-features.png" alt="Feature extractor fields: Well, Slide, Magnification, micrometres per pixel, and the Extract features button. The saved folder contains a table, patches, masks, cnn images, and a qc picture.">
+    <ol class="steps">
+      <li>Finish the outlines and the classes first. The table uses the outlines you kept, not a new segmentation.</li>
+      <li>Type <strong>Well</strong>, <strong>Slide</strong>, and <strong>Magnification</strong> when you were given them. They are stored with every cell.</li>
+      <li>Type <strong>µm per pixel</strong> only when you know the camera scale. Area and lengths are then also saved in micrometres. Leave it blank if you do not know it.</li>
+      <li>Click <strong>Extract features</strong> and choose a folder. The bottom line counts “Measuring cell 1 of N…”</li>
+    </ol>
+    <p class="get"><strong>You get</strong> a folder named <strong>demo_features</strong>. Open <strong>features.csv</strong> for one row per cell. The <strong>class</strong> column is the training label. <strong>patches</strong> holds a crop of each cell, <strong>masks</strong> holds the cell, nucleus estimate, and cytoplasm, <strong>cnn</strong> holds a 128×128 picture, and <strong>qc</strong> is a picture you can look at to see that the outlines landed on the right cells.</p>
+  </section>
+
+  <section>
+    <h2>14. Move through a folder of slides</h2>
+    <ol class="steps">
+      <li>Put every slide in one folder, then open the first with <strong>Open image</strong>. You can also drop a picture onto the window.</li>
+      <li><strong>Previous</strong> and <strong>Next</strong> step through that folder. Ani asks before it leaves unsaved outlines.</li>
+      <li><strong>Recent</strong> lists pictures opened on this computer.</li>
+      <li>The file name line shows the size and how many slides already have a saved file, such as “demo.jpg · 1024×768 · 2 of 10 saved”.</li>
+      <li><strong>Fit</strong> shows the whole slide. <strong>Contrast</strong> resets the brightness from the pixels. The wheel zooms. Left-drag moves the slide when Pan, Glide, or Points is selected.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>15. The other Ani window</h2>
+    <p>The window this guide describes is the one that opens from <strong>run_ani.bat</strong>. It is the one operators should use.</p>
+    <p>A second, older window opens only if someone starts Ani with <strong>python -m ani --full</strong>. That window has four tabs:</p>
+    <ol class="steps">
+      <li><strong>Annotate</strong> reviews a project of many images and can correct a detector’s outlines.</li>
+      <li><strong>AI</strong> runs Cellpose, micro-sam, or a YOLO model when those packages are installed.</li>
+      <li><strong>Train</strong> scores outlines and tunes the Classic segmenter.</li>
+      <li><strong>Settings</strong> holds project options.</li>
+    </ol>
+    <p>Day-to-day marking, Classic auto segment, Click, classes, save, and the feature table are all in the main window. You do not need the four-tab window for this practice slide.</p>
+  </section>
+
+  <section>
+    <h2>Keys</h2>
+    <table>
+      <tr><th>Key</th><th>Action</th></tr>
+      <tr><td>Ctrl+O</td><td>Open a picture</td></tr>
+      <tr><td>Ctrl+S</td><td>Save</td></tr>
+      <tr><td>Ctrl+Z</td><td>Undo</td></tr>
+      <tr><td>Ctrl+Shift+Z</td><td>Redo</td></tr>
+      <tr><td>G</td><td>Glide</td></tr>
+      <tr><td>P</td><td>Points</td></tr>
+      <tr><td>B</td><td>Brush</td></tr>
+      <tr><td>E</td><td>Erase</td></tr>
+      <tr><td>C</td><td>Click one object</td></tr>
+      <tr><td>Z</td><td>Pan</td></tr>
+      <tr><td>F</td><td>Fill holes</td></tr>
+      <tr><td>1 to 9</td><td>Pick a class in the list</td></tr>
+      <tr><td>[ and ]</td><td>Previous or next class</td></tr>
+      <tr><td>Delete</td><td>Remove the outline under the pointer</td></tr>
+      <tr><td>Esc</td><td>Cancel the outline you are drawing</td></tr>
+    </table>
+  </section>
+
+  <section class="warn">
+    <h2>If something looks wrong</h2>
+    <table>
+      <tr><th>What you see</th><th>What to do</th></tr>
+      <tr><td>The outline crossed empty space</td><td>Ctrl+Z, zoom in, and trace the edge again</td></tr>
+      <tr><td>A dark clump was outlined</td><td>Click Erase, or press Delete over that outline</td></tr>
+      <tr><td>Two cells became one shape</td><td>Erase the bridge between them, then close each cell</td></tr>
+      <tr><td>Segment marked thousands of pieces</td><td>That is the Classic draft on this crowded slide. Erase specks, or Ctrl+Z and use Click on the cells you need</td></tr>
+      <tr><td>Cellpose is not in the menu</td><td>Use Classic. Cellpose appears only after install_ai.bat</td></tr>
+      <tr><td>The bottom line says a segmentation is already running</td><td>Wait until it finishes. Do not start a second one</td></tr>
+      <tr><td>The picture will not drag</td><td>Click Pan. Brush, Erase, and Click use the left button for drawing</td></tr>
+      <tr><td>Ani says it is already open</td><td>Use the window that is already on the screen</td></tr>
+    </table>
+  </section>
+</main>
+</body>
+</html>

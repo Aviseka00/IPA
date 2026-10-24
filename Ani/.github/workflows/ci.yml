@@ -1,0 +1,87 @@
+# Runs on every push / pull request once this folder is on GitHub (free for public repositories).
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: tests (${{ matrix.os }}, py${{ matrix.python }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+        python: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: pyvista/setup-headless-display-action@v3   # OpenGL for the napari viewer on all three OSes
+        with:
+          qt: true
+      - name: Install
+        run: python -m pip install --upgrade pip && python -m pip install -e ".[dev]"
+      - name: Lint
+        run: ruff check ani tests
+      - name: Self-test
+        run: python -m ani --selftest
+      - name: Tests
+        run: python -m pytest -q --cov=ani --cov-report=term-missing
+      - name: Open the real window for 3 seconds
+        run: python -m ani --smoke
+
+  cellpose:
+    name: real Cellpose (downloads model)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install (CPU torch)
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -e ".[dev,ai]"
+      - name: Integration tests
+        env:
+          ANI_INTEGRATION: "1"
+          QT_QPA_PLATFORM: offscreen
+        run: python -m pytest -q -m integration tests/test_integration.py
+
+  windows-installer:
+    name: Windows installer
+    needs: test
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: pyvista/setup-headless-display-action@v3
+        with:
+          qt: true
+      - name: Build app
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install ".[build]"
+          python -m PyInstaller packaging/ani.spec --noconfirm --distpath dist --workpath build
+      - name: Test the built app
+        run: |
+          dist\Ani\Ani-console.exe --selftest
+          dist\Ani\Ani-console.exe --smoke
+        shell: cmd
+      - name: Build installer (Inno Setup)
+        run: |
+          choco install innosetup -y --no-progress
+          $env:ANI_VERSION = (python -c "import ani; print(ani.__version__)")
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" packaging\installer.iss
+        shell: pwsh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Ani-Windows-installer
+          path: dist/Ani-Setup-*.exe

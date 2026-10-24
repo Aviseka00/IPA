@@ -11,6 +11,15 @@ venv/
 dist/
 build/
 
+# Ani companion (vendored under Ani/) — never commit local envs / caches
+Ani/.venv/
+Ani/**/__pycache__/
+Ani/*.egg-info/
+Ani/.pytest_cache/
+Ani/build/
+Ani/dist/
+Ani/ani_reports/
+
 # IDE / tools
 .idea/
 .vscode/
@@ -18,10 +27,32 @@ build/
 .pytest_cache/
 .mypy_cache/
 
-# Web app runtime outputs (regenerated locally)
-web_app/processed_images/
-web_app/uploads/
+# Training intermediates (keep only IPA3.0/ and IPAV2.0/ top-level checkpoints)
+ml_infection/artifacts/**/_cv_work/
+ml_infection/artifacts/**/*_traced.pt
+ml_infection/artifacts/**/unet_infected_best.pt
+
+# Web app
+web_app/storage/
+web_app/backend/.venv/
+web_app/backend/.env
+web_app/frontend/node_modules/
+web_app/frontend/dist/
 
 # OS
 Thumbs.db
 Desktop.ini
+
+# Large local data (keep out of git; app code only)
+Images/
+weights/
+datasets/retrain_from_review/
+web_app/logs/
+web_app/_backup_before_IPA8_*/
+test/inference_output/
+test/_web_debug/
+**/manifest.jsonl
+**/*.lock
+results/
+runs/
+kaggle_upload/

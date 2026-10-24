@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ani"
+version = "0.4.0"
+description = "Ani – fast CPU annotator for outlining objects in any image and exporting training data"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+dependencies = [
+    "napari[pyqt6]>=0.5",
+    "numpy",
+    "scipy",
+    "scikit-image>=0.22",
+    "tifffile",
+    "imageio",
+]
+
+[project.optional-dependencies]
+ai = ["cellpose>=3.1,<4"]
+dev = ["pytest", "pytest-cov", "nbformat", "ruff"]
+build = ["pyinstaller>=6"]
+
+[project.scripts]
+ani = "ani.__main__:main"
+
+[tool.setuptools]
+packages = ["ani", "ani.ai"]
+
+
+[tool.pytest.ini_options]
+markers = ["integration: needs real AI packages and internet (set ANI_INTEGRATION=1)"]
+
+[tool.ruff]
+line-length = 120
+extend-exclude = ["tests/fakes"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B", "I"]
+ignore = ["E501", "E702", "B905"]

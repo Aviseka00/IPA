@@ -1,13 +1,10 @@
 services:
-  mongo:
+  mongodb:
     image: mongo:7
-    restart: unless-stopped
     ports:
       - "27017:27017"
     volumes:
-      - mongo_cell_data:/data/db
-    environment:
-      MONGO_INITDB_DATABASE: cell_infection_analysis
+      - ipa_mongo_data:/data/db
 
 volumes:
-  mongo_cell_data:
+  ipa_mongo_data:
